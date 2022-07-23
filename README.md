@@ -1,8 +1,8 @@
 # P5 Mobile-Friendly Cursor Library
-A Javascript library that helps P5JS behave more consistently on mobile devices.
+A Javascript library that makes it easier to make P5JS sketches for mobile devices.
 ## Differences from Normal P5JS
-- `onMobile` variable tracks whether the user is on a touchscreen device
-- Tracks swipe velocity
+- `onMobile` property tracks whether the user is on a touchscreen device
+- `swipeVelocity` property tracks velocity when user swipes
 - Changes to the canvas:
   - Canvas automatically fills the screen with a configurable aspect ratio (optional)
   - Canvas is automatically centered
@@ -76,7 +76,7 @@ Add this line to your setup function:
 
 `myCursor = new MobileFriendlyCursor( [mySettings] )`
 
-`mySettings` is an optional parameter. It should be an object with any of the properties below. Any settings not included in your settings object will default to the values shown below.
+`mySettings` is an optional parameter. It should be an object with any of the properties shown below (as many or as few as you like). Any settings not included in your settings object will default to the values shown below.
 ### Default settings:
 ```javascript
 let mySettings = {
@@ -108,7 +108,7 @@ let mySettings = {
   - `allCursors`: An array of objects that store the positions of all cursors (there will be several if multiple fingers are pressed on mobile)
   - `render()`: A method that draws information about your cursor to the canvas.
 
-*This feature requires you to call the MobileFriendlyCursor's .update() method in your draw loop.
+*This feature requires you to call the MobileFriendlyCursor's `.update()` method in your draw loop.
 
 ## New Event Functions
 These functions are called after specific mouse events, similar to how `mouseClicked()` works in P5JS.
@@ -130,10 +130,10 @@ touchMove() //On mobile only: triggered when a pressed finger moves
 ## Known Issues
 Many of these issues are present in normal P5JS.
 - On Apple devices:
-  - On Microsoft Edge: Somewhat unpredictable behavior
+  - On Microsoft Edge: Generally unpredictable behavior
   - On DuckDuckGo: swiping up and down causes the canvas to move around
   - Tapping once, then quickly tapping and holding can cause the cursor to freeze in some browsers
 - Before the canvas loads, users can zoom and pan, but once the canvas loads, they no longer can (it may become permanently stuck). For this reason, using asynchronous loading instead of `preload()` is recommended (see my [asynchronous loading library](https://github.com/IkeB108/P5-Asynchronous-Loading-Library))
-- Cursor teleports when releasing fingers in an arbitrary order
+- Cursor teleports when releasing multiple fingers in an arbitrary order
 - Opening the context menu (inside or outside the canvas) causes the cursor to teleport
 - Cursor will stay "pressed" if pressed at the moment a dialogue window opens
