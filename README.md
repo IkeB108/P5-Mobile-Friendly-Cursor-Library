@@ -1,13 +1,13 @@
 # P5 Mobile-Friendly Cursor Library
 A Javascript library that helps P5JS work more consistently on mobile devices.
 ## Features
-- Cursor behavior is generally more consistent between mobile devices and PCs
 - `onMobile` variable tracks whether the user is on a touchscreen device
 - Tracks swipe velocity
 - Changes to the canvas
   - Canvas automatically fills the screen with a configurable aspect ratio (optional)
   - Canvas is automatically centered
   - Uses effective techniques to resize and re-center the canvas on window resizes and device rotations
+- Cursor behavior is generally more consistent between mobile devices and PCs
 - Use three fingers to open a poor man's Javascript console on mobile (optional)
 - Right-clicking the canvas no longer opens the context menu (optional)
 - The `cursorClick` function is only called after a short click (not just any mouse button release release like `mouseClicked()`) (has configurable settings)
@@ -16,6 +16,7 @@ A Javascript library that helps P5JS work more consistently on mobile devices.
 - Tracks cursor position at the last press
 - See info about the cursor in real time with the .render() method
 ## Example
+[Click here](https://ikeb108.github.io/P5-Mobile-Friendly-Cursor-Library/Example/) to see this example live
 ```javascript
 function setup(){
   
