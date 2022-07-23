@@ -19,6 +19,8 @@ A Javascript library that can make P5JS sketches more compatible for mobile devi
 [Click here](https://ikeb108.github.io/P5-Mobile-Friendly-Cursor-Library/Example/) to see this example run live
 ```javascript
 function setup(){
+  // calling createCanvas() is not necessary
+  // unless you want to manually set the canvas's width and height
   
   let mySettings = {
     threeFingerConsole: true,
@@ -26,7 +28,7 @@ function setup(){
     maxAspectRatio: 2 //canvas width will be no larger than twice the height
   }
   
-  myCursor = new MobileFriendlyCursor( mySettings );
+  myCursor = new MobileFriendlyCursor( );
   
   textSize(30)
 }
@@ -36,6 +38,9 @@ function draw(){
   
   fill("white");
   text("There are " + myCursor.allCursors.length + " cursors\nTry pressing any mouse button", 50, 50 )
+  
+  text("x: " + myCursor.x, 50, 150)
+  text("y: " + myCursor.y, 50, 200)
   
   //Draw circles that show which mouse buttons are being pressed
   
@@ -69,7 +74,6 @@ function cursorPressStart(buttonPressed){
 function cursorPressEnd(buttonReleased){
   console.log("the " + buttonReleased + " button was released")
 }
-
 ```
 ## Syntax
 Add this line to your setup function:
@@ -137,3 +141,5 @@ Many of these issues are present in normal P5JS.
 - Cursor teleports when releasing multiple fingers in an arbitrary order
 - Opening the context menu (inside or outside the canvas) causes the cursor to teleport
 - Cursor will stay "pressed" if pressed at the moment a dialogue window opens
+- This library is intended for webpages that have nothing else in them other than a canvas element (it will erase anything else)
+- This library will not work correctly in p5's instance mode or with multiple canvases
