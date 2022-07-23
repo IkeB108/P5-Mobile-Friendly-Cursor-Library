@@ -1,9 +1,9 @@
 # P5 Mobile-Friendly Cursor Library
 A Javascript library that helps P5JS work more consistently on mobile devices.
-## Improvements:
+## Differences from Normal P5JS
 - `onMobile` variable tracks whether the user is on a touchscreen device
 - Tracks swipe velocity
-- Changes to the canvas
+- Changes to the canvas:
   - Canvas automatically fills the screen with a configurable aspect ratio (optional)
   - Canvas is automatically centered
   - Uses effective techniques to resize and re-center the canvas on window resizes and device rotations
@@ -93,13 +93,30 @@ let mySettings = {
   maxClickTime: 600, //Number (milliseconds). If the cursor is pressed for longer than this, it will not count as a click (but it will count as a press)
 }
 ```
+## Features
+- Your `MobileFriendlyCursor` object has helpful properties for you to use:
+  - `x`: X coordinate of the cursor on the canvas
+  - `y`: Y coordinate of the cursor on the canvas
+  - `leftPressed` (boolean)
+  - `middlePressed` (boolean)
+  - `rightPressed` (boolean)
+  - `pressed`: (boolean; stores whether any button is pressed)
+  - `onMobile`: Boolean storing whether the user is on a touchscreen device
+  - `previous`: An object storing the x and y coordinates of the cursor at the previous frame*
+  - `atPress`: An object storing the x and y coordinates of the cursor at the last press start
+  - `swipeVelocity`: An object storing the x and y velocities of the user's last swipe*
+  - `allCursors`: An array of objects that store the positions of all cursors (there will be several if multiple fingers are pressed on mobile)
+  - `render()`: A method that draws information about your cursor to the canvas.
+
+*This feature requires you to call the MobileFriendlyCursor's .update() method in your draw loop.
+
 ## New Event Functions
 These functions are called after specific mouse events, similar to how `mouseClicked()` works in P5JS.
 All of these functions will be passed a parameter stating which mouse button was pressed or released; it will be "left", "right", "middle", or a number (for mice that have extra buttons). On mobile devices, finger presses always count as "left" button presses.
 ```javascript
 cursorPressStart( buttonPressed ) //On any device: triggered when any button is pressed
 cursorPressEnd( buttonReleased ) //On any device: triggered when any button is released
-cursorClick( buttonPressed ) //On any device: triggered when a mouse button is pressed and then quickly rseleased
+cursorClick( buttonPressed ) //On any device: triggered when a mouse button is pressed and then quickly released
 cursorMove() //On any device: triggered when the cursor moves (no button parameter is passed)
 
 mousePressStart( buttonPressed ) //On PC only: triggered when any button is pressed
@@ -110,3 +127,13 @@ touchPressStart( buttonPressed ) //On mobile only: triggered when a finger is pr
 touchPressEnd( buttonPressed ) //On mobile only: triggered when a finger is released
 touchMove() //On mobile only: triggered when a pressed finger moves
 ```
+## Known Issues
+Many of these issues are present in normal P5JS.
+- On Apple devices:
+  - On Microsoft Edge: Somewhat unpredictable behavior
+  - On DuckDuckGo: swiping up and down causes the canvas to move around
+  - Tapping once, then quickly tapping and holding can cause the cursor to freeze in some browsers
+- Before the canvas loads, users can zoom and pan, but once the canvas loads, they no longer can (it may become permanently stuck). For this reason, using asynchronous loading instead of `preload()` is recommended (see my [asynchronous loading library](https://github.com/IkeB108/P5-Asynchronous-Loading-Library))
+- Cursor teleports when releasing fingers in an arbitrary order
+- Opening the context menu (inside or outside the canvas) causes the cursor to teleport
+- Cursor will stay "pressed" if pressed at the moment a dialogue window opens
