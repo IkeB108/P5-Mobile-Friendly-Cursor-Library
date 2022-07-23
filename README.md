@@ -29,7 +29,7 @@ function setup(){
     maxAspectRatio: 2 //canvas width will be no larger than twice the height
   }
   
-  myCursor = new MobileFriendlyCursor( );
+  myCursor = new MobileFriendlyCursor( mySettings );
   
   textSize(30)
 }
