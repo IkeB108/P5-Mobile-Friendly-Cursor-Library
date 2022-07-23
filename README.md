@@ -1,5 +1,5 @@
 # P5 Mobile-Friendly Cursor Library
-A Javascript library that helps P5JS work more consistently on mobile devices.
+A Javascript library that helps P5JS behave more consistently on mobile devices.
 ## Differences from Normal P5JS
 - `onMobile` variable tracks whether the user is on a touchscreen device
 - Tracks swipe velocity
