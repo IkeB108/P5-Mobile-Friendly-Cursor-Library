@@ -1,6 +1,6 @@
 # P5 Mobile-Friendly Cursor Library
 A Javascript library that helps P5JS work more consistently on mobile devices.
-## Features
+## Improvements:
 - `onMobile` variable tracks whether the user is on a touchscreen device
 - Tracks swipe velocity
 - Changes to the canvas
@@ -16,7 +16,7 @@ A Javascript library that helps P5JS work more consistently on mobile devices.
 - Tracks cursor position at the last press
 - See info about the cursor in real time with the .render() method
 ## Example
-[Click here](https://ikeb108.github.io/P5-Mobile-Friendly-Cursor-Library/Example/) to see this example live
+[Click here](https://ikeb108.github.io/P5-Mobile-Friendly-Cursor-Library/Example/) to see this example run live
 ```javascript
 function setup(){
   
@@ -63,5 +63,50 @@ function draw(){
   myCursor.update();
 }
 
+function cursorPressStart(buttonPressed){
+  console.log("the " + buttonPressed + " button was pressed")
+}
+function cursorPressEnd(buttonReleased){
+  console.log("the " + buttonReleased + " button was released")
+}
+
 ```
 ## Syntax
+Add this line to your setup function:
+
+`myCursor = new MobileFriendlyCursor( [mySettings] )`
+
+`mySettings` is an optional parameter. It should be an object with any of the properties below. Any settings not included in your settings object will default to the values shown below.
+### Default settings:
+```javascript
+let mySettings = {
+  logEvents: false, //Boolean. When true, mouse events are logged to the console.
+  disableContextMenu: true, //Boolean. When true, right clicking the canvas will not open the context menu
+  minAspectRatio: 1/3, //Number. The minimum allowed width-to-height aspect ratio of the canvas.
+  maxAspectRatio: 2/3, //Number. The maximum allowed width-to-height aspect ratio of the canvas.
+  manualSize: false, //Boolean. When true, the canvas will not automatically be resized. The canvas width and height will be whatever you write in createCanvas()
+  marginInPixels: 20, //Number. The size of the margin between the canvas and the edge of the window.
+  threeFingerConsole: false, //Boolean. When true, on mobile, pressing three fingers on the canvas will open a poor man's Javascript console (a pop-up dialog), and errors will also appear as pop-up dialogs (but not on PC)
+  swipeOnButton: "left", //String. Name of the mouse button that counts as a "swipe" (taps on mobile devices count as a left mousebutton press)
+  swipeDeceleration: 0.9, //Number. Once per frame, the swipe velocity is multiplied by this value.
+  maxClickDistance: window.innerWidth/10, //Number. If the cursor travels further than this value while pressed, it will not count as a click (but it will count as a press)
+  maxClickTime: 600, //Number (milliseconds). If the cursor is pressed for longer than this, it will not count as a click (but it will count as a press)
+}
+```
+## New Event Functions
+These functions are called after specific mouse events, similar to how `mouseClicked()` works in P5JS.
+All of these functions will be passed a parameter stating which mouse button was pressed or released; it will be "left", "right", "middle", or a number (for mice that have extra buttons). On mobile devices, finger presses always count as "left" button presses.
+```javascript
+cursorPressStart( buttonPressed ) //On any device: triggered when any button is pressed
+cursorPressEnd( buttonReleased ) //On any device: triggered when any button is released
+cursorClick( buttonPressed ) //On any device: triggered when a mouse button is pressed and then quickly rseleased
+cursorMove() //On any device: triggered when the cursor moves (no button parameter is passed)
+
+mousePressStart( buttonPressed ) //On PC only: triggered when any button is pressed
+mousePressEnd( buttonReleased ) //On PC only: triggered when any button is released
+mouseMove() //On PC only: triggered when the cursor moves (no button parameter is passed)
+
+touchPressStart( buttonPressed ) //On mobile only: triggered when a finger is pressed
+touchPressEnd( buttonPressed ) //On mobile only: triggered when a finger is released
+touchMove() //On mobile only: triggered when a pressed finger moves
+```
