@@ -42,3 +42,10 @@ function draw(){
   
   myCursor.update();
 }
+
+function cursorPressStart(buttonPressed){
+  console.log("the " + buttonPressed + " button was pressed")
+}
+function cursorPressEnd(buttonReleased){
+  console.log("the " + buttonReleased + " button was released")
+}
