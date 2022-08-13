@@ -145,6 +145,7 @@ function MobileFriendlyCursor( settingsObject ){
     document.documentElement.style.height = "100%";
     canvas.setAttribute('style', `vertical-align: top;`)
     let doc_meta = document.querySelector("meta")
+    if(doc_meta == null)doc_meta = document.createElement("meta")
     doc_meta.content = "user-scalable=no"
   }
   if(this.settings.disableContextMenu){
