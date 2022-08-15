@@ -3,8 +3,8 @@ function MobileFriendlyCursor( settingsObject ){
   
   this.onMobile = false;
   
-  this.x = null;
-  this.y = null;
+  this.x = 0;
+  this.y = 0;
   this.pressed = false;
   this.leftPressed = false;
   this.rightPressed = false;
